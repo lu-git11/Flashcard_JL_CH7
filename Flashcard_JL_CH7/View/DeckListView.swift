@@ -39,7 +39,7 @@ struct DeckListView:View {
                     } label: {
                         VStack{
                             Text(deck.name)
-                                .font(.system(size: fontSize))
+                                //.font(.system(size: fontSize))
                             Text("\(deck.flashcards.count) cards inside")
                                 .font(.system(size: fontSize - 2))
                         }
