@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct Flashcard_JL_CH7App: App {
+    @StateObject private var store = DeckStore()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }
-    }
-}
+            NavigationStack{
+                DeckListView()
+            }//end nav 
+            .environmentObject(store)
+        }//end window
+    }//end body
+}// end struct
