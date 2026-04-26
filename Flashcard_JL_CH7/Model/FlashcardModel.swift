@@ -8,19 +8,19 @@
 import Foundation //<-- primitive operations and types
 
 //Model == custom type
-struct Flashcard: Identifiable{
+struct Flashcard: Identifiable, Codable, Equatable{
     
-    let id:UUID = UUID()
+    var id:UUID
     var front:String
     var back:String
     
+    init(id: UUID = UUID(), front: String, back: String){
+        self.id = id
+        self.front = front
+        self.back = back
+    }
 }
 
-struct Deck: Identifiable{
-    
-    let id:UUID = UUID()
-    var name: String
-    var flashcards: [Flashcard]
-}
+
 
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @AppStorage("shuffleCards") private var shuffleCards: Bool = true
     @AppStorage("cardsPerSession") private var cardsPerSession: Int = 5
+    @AppStorage("showBackFirst") private var showBackFirst = false
     @AppStorage("SETTINGS_APPEARANCE_THEME_KEY") private var theme: Theme = .system
     @AppStorage("userFontSize") private var fontSize: Double = 16.0
     
@@ -17,6 +18,7 @@ struct SettingsView: View {
         Form{
             Section("STUDY"){
                 Toggle("Shuffle", isOn: $shuffleCards)
+                Toggle("Show Back First", isOn: $showBackFirst)
                 Stepper("Number of Cards \(cardsPerSession)", value: $cardsPerSession, in: 1...50)
             }
             

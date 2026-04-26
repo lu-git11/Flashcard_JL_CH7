@@ -14,6 +14,8 @@ struct DeckListView:View {
     @AppStorage("SETTINGS_APPEARANCE_THEME_KEY") private var theme: Theme = .system
     @AppStorage("userFontSize") private var fontSize: Double = 16.0
     
+    @State private var showingAddDeck = false
+    
     var currentTheme: ColorScheme? {
         switch theme {
         case .system:
@@ -34,32 +36,41 @@ struct DeckListView:View {
                 
                 ForEach(store.decks){ deck in
                     NavigationLink{
-                        // place for link to next view
-                        
-                    } label: {
-                        VStack{
-                            Text(deck.name)
-                                //.font(.system(size: fontSize))
+                        DeckDetailView(deckID: deck.id)
+                        } label: {
+                            VStack(alignment: .leading, spacing: 4){
+                                Text(deck.name)
+                                    .font(.system(size: fontSize))
                             Text("\(deck.flashcards.count) cards inside")
                                 .font(.system(size: fontSize - 2))
                         }
                     }
                 }//forEach end
+                .onDelete(perform: store.deleteDeck)
             }//section end
         }
         .font(.system(size: fontSize))
         .navigationTitle("List of Decks")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar{
+        .toolbar {
             ToolbarItem(placement: .topBarLeading){
-                NavigationLink{
-                    SettingsView()
-                } label: {
-                    Image(systemName: "gear")
+                    EditButton()
                 }
+                ToolbarItem(placement: .topBarTrailing){
+                    Button{ showingAddDeck = true } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing){
+                    NavigationLink{ SettingsView() } label: {
+                        Image(systemName: "gear")
+                    }
+                }
+            }//toolbar end
+            .preferredColorScheme(currentTheme)
+            .sheet(isPresented: $showingAddDeck){
+                AddDeckView()
             }
-        }//toolbar end
-        .preferredColorScheme(currentTheme)
     }//view end
 }//struct end
 

@@ -15,7 +15,8 @@ struct Flashcard_JL_CH7App: App {
         WindowGroup {
             NavigationStack{
                 DeckListView()
-            }//end nav 
+                
+            }//end nav
             .environmentObject(store)
         }//end window
     }//end body
